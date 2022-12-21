@@ -96,13 +96,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>belvisangu Releases Nexus Repository</name>
-	      <url>http://3.16.129.96:8081/repository/tesla-fe-releases/</url>
+	      <url>http://3.135.19.103:8081/repository/maven-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>belvisangu Snapshot Nexus Repository </name>
-	      <url>http://3.16.129.96:8081/repository/tesla-fe-snapshots/</url>
+	      <url>http://3.135.19.103:8081/repository/maven-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>

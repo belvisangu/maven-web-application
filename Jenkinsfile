@@ -1,41 +1,41 @@
 pipeline{
-  agent any 
-  tools {
-    maven "maven3.6.0"
-  }  
-  stages {
-    stage('1GetCode'){
-      steps{
-        sh "echo 'cloning the latest application version' "
-        git branch: 'feature', credentialsId: 'gitHubCredentials', url: 'https://github.com/LandmakTechnology/maven-web-application'
-      }
+    agent any
+    tools {
+        maven "maven3.8.6"
     }
-    stage('3Test+Build'){
-      steps{
-        sh "echo 'running JUnit-test-cases' "
-        sh "echo 'testing must passed to create artifacts ' "
-        sh "mvn clean package"
-      }
+    stages{
+        stage('1GetCode'){
+            steps{
+                sh "echo 'cloning the lastest application version' "
+                git "https://github.com/belvisangu/maven-web-application"
+            }
+        }
+        stage('2test+build'){
+            steps{
+                sh "echo 'running Junit test cases' "
+                sh "echo 'testing must succeed to create artifacts' "
+                sh "mvn clean package"
+            }
+        }
+      /*
+        stage('3CodeQuality'){
+            steps{
+                sh "echo 'performing CodeQuality' "
+                sh "mvn sonar:sonar"
+            }
+        }
+        stage('5UploadtoNexus'){
+            steps{
+                sh "mvn deploy"
+            }
+        }
+        stage('6deploy2prod'){
+            steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://18.188.241.247:8080/')], contextPath: null, war: 'target/*war'
+            }
+        }
     }
-    /*
-    stage('4CodeQuality'){
-      steps{
-        sh "echo 'Perfoming CodeQualityAnalysis' "
-        sh "mvn sonar:sonar"
-      }
-    }
-    stage('5uploadNexus'){
-      steps{
-        sh "mvn deploy"
-      }
-    } 
-    stage('8deploy2prod'){
-      steps{
-        deploy adapters: [tomcat8(credentialsId: 'tomcat-credentials', path: '', url: 'http://35.170.249.131:8080/')], contextPath: null, war: 'target/*war'
-      }
-    }
-}
-  post{
+    post{
     always{
       emailext body: '''Hey guys
 Please check build status.
@@ -62,5 +62,4 @@ Landmark
     }
   } 
   */
-}
-}
+}  
